@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from weborg.views import HomePageView
+from weborg.views import HomePageView, PriorityList
 from weborg import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomePageView.as_view(), name='home'),
+    path('priority_list', PriorityList.as_view(), name='priority-list'),
 ]
