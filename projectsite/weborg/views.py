@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from weborg.models import Priority
 from weborg.forms import PriorityForm
 from django.urls import reverse_lazy
@@ -27,4 +27,9 @@ class PriorityUpdateView(UpdateView):
     model = Priority
     form_class = PriorityForm
     template_name = 'priority_form.html'
+    success_url = reverse_lazy('priority-list')
+
+class PriorityDeleteView(DeleteView):
+    model = Priority
+    template_name = 'priority_del.html'
     success_url = reverse_lazy('priority-list')
