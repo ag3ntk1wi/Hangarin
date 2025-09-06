@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from weborg.views import HomePageView, PriorityList, PriorityCreateView
+from weborg.views import HomePageView, PriorityList, PriorityCreateView, PriorityUpdateView
 from weborg import views
 
 urlpatterns = [
@@ -24,4 +24,5 @@ urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
     path('priority_list', PriorityList.as_view(), name='priority-list'),
     path('priority_list/add', PriorityCreateView.as_view(), name='priority-add'),
+    path('priority_list/<pk>',PriorityUpdateView.as_view(), name='priority-update'),
 ]
