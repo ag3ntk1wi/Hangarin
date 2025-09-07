@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from weborg.models import Priority, Category, Task, Note, SubTask
-from weborg.forms import PriorityForm
+from weborg.forms import PriorityForm, CategoryForm
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -39,3 +39,9 @@ class CategoryList(ListView):
     context_object_name = 'category'
     template_name = 'category_list.html'
     paginate_by = 5
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'category_form.html'
+    success_url = reverse_lazy('category-list')
