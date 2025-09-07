@@ -45,3 +45,9 @@ class CategoryCreateView(CreateView):
     form_class = CategoryForm
     template_name = 'category_form.html'
     success_url = reverse_lazy('category-list')
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'category_form.html'
+    success_url = reverse_lazy('category-list')

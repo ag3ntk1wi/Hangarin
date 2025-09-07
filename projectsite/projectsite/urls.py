@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from weborg.views import HomePageView, PriorityList, PriorityCreateView, PriorityUpdateView, PriorityDeleteView
-from weborg.views import CategoryList, CategoryCreateView
+from weborg.views import CategoryList, CategoryCreateView, CategoryUpdateView
 from weborg import views
 
 urlpatterns = [
@@ -31,6 +31,7 @@ urlpatterns = [
     ##category
     path('category_list', CategoryList.as_view(), name='category-list'),
     path('category_list/add', CategoryCreateView.as_view(), name='category-add'),
+    path('category_list/<pk>',CategoryUpdateView.as_view(), name='category-update'),
     ##task
     ##note
     ##subtask
