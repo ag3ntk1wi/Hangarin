@@ -20,7 +20,7 @@ from weborg.views import HomePageView, PriorityList, PriorityCreateView, Priorit
 from weborg.views import CategoryList, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
 from weborg.views import TaskList, TaskCreateView, TaskUpdateView, TaskDeleteView
 from weborg.views import NoteList, NoteCreateView, NoteUpdateView, NoteDeleteView
-from weborg.views import SubTaskList, SubTaskCreateView
+from weborg.views import SubTaskList, SubTaskCreateView, SubTaskUpdateView
 from weborg import views
 
 urlpatterns = [
@@ -49,4 +49,5 @@ urlpatterns = [
     # SubTask Paths
     path('subtask_list', SubTaskList.as_view(), name='subtask-list'),
     path('subtask_list/add', SubTaskCreateView.as_view(), name='subtask-add'),
+    path('subtask_list/<pk>',SubTaskUpdateView.as_view(), name='subtask-update'),
 ]
