@@ -11,6 +11,7 @@ class HomePageView(ListView):
     context_object_name = 'home'
     template_name = "home.html"
 
+# Priority Views
 class PriorityList(ListView):
     model = Priority
     context_object_name = 'priority'
@@ -34,6 +35,7 @@ class PriorityDeleteView(DeleteView):
     template_name = 'priority_del.html'
     success_url = reverse_lazy('priority-list')
 
+# Category Views
 class CategoryList(ListView):
     model = Category
     context_object_name = 'category'
@@ -56,3 +58,12 @@ class CategoryDeleteView(DeleteView):
     model = Category
     template_name = 'category_del.html'
     success_url = reverse_lazy('category-list')
+
+# Task Views
+class TaskList(ListView):
+    model = Task
+    context_object_name = 'task'
+    template_name = 'task_list.html'
+    paginate_by = 5
+# Note Views
+# Subtask Views

@@ -18,22 +18,24 @@ from django.contrib import admin
 from django.urls import path
 from weborg.views import HomePageView, PriorityList, PriorityCreateView, PriorityUpdateView, PriorityDeleteView
 from weborg.views import CategoryList, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
+from weborg.views import TaskList
 from weborg import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomePageView.as_view(), name='home'),
-    ##priority
+    # Priority Paths
     path('priority_list', PriorityList.as_view(), name='priority-list'),
     path('priority_list/add', PriorityCreateView.as_view(), name='priority-add'),
     path('priority_list/<pk>',PriorityUpdateView.as_view(), name='priority-update'),
     path('priority_list/<pk>/delete', PriorityDeleteView.as_view(), name='priority-delete'),
-    ##category
+    # Category Paths
     path('category_list', CategoryList.as_view(), name='category-list'),
     path('category_list/add', CategoryCreateView.as_view(), name='category-add'),
     path('category_list/<pk>',CategoryUpdateView.as_view(), name='category-update'),
     path('category_list/<pk>/delete', CategoryDeleteView.as_view(), name='category-delete'),
-    ##task
-    ##note
-    ##subtask
+    # Task Paths
+    path('task_list', TaskList.as_view(), name='task-list'),
+    # Note Paths
+    # SubTask Paths
 ]
