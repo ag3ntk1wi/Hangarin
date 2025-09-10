@@ -101,4 +101,9 @@ class NoteUpdateView(UpdateView):
     form_class = NoteForm
     template_name = 'note_form.html'
     success_url = reverse_lazy('note-list')
+
+class NoteDeleteView(DeleteView):
+    model = Note
+    template_name = 'note_del.html'
+    success_url = reverse_lazy('note-list')
 # Subtask Views
