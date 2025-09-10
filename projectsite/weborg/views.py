@@ -83,4 +83,10 @@ class TaskDeleteView(DeleteView):
     template_name = 'task_del.html'
     success_url = reverse_lazy('task-list')
 # Note Views
+
+class NoteList(ListView):
+    model = Note
+    context_object_name = 'note'
+    template_name = 'note_list.html'
+    paginate_by = 5
 # Subtask Views
