@@ -35,6 +35,7 @@
                                 <tr>
                                     <th scope="col">Content</th>
                                     <th scope="col">Task</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,6 +43,7 @@
                                 <tr>
                                     <td>{{ object.note_content }}</td>
                                     <td>{{ object.note_task }}</td>
+                                    <td><a href="note_list/{{ object.id }}">Edit</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

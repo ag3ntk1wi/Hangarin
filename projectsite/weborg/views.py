@@ -95,4 +95,10 @@ class NoteCreateView(CreateView):
     form_class = NoteForm
     template_name = 'note_form.html'
     success_url = reverse_lazy('note-list')
+
+class NoteUpdateView(UpdateView):
+    model = Note
+    form_class = NoteForm
+    template_name = 'note_form.html'
+    success_url = reverse_lazy('note-list')
 # Subtask Views
