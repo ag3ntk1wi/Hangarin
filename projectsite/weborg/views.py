@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from weborg.models import Priority, Category, Task, Note, SubTask
-from weborg.forms import PriorityForm, CategoryForm, TaskForm, NoteForm
+from weborg.forms import PriorityForm, CategoryForm, TaskForm, NoteForm, SubTaskForm
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -114,3 +114,9 @@ class SubTaskList(ListView):
     context_object_name = 'subtask'
     template_name = 'subtask_list.html'
     paginate_by = 5
+
+class SubTaskCreateView(CreateView):
+    model = SubTask
+    form_class = SubTaskForm
+    template_name = 'subtask_form.html'
+    success_url = reverse_lazy('subtask-list')
