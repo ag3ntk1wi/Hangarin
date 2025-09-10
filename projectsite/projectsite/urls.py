@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from weborg.views import HomePageView, PriorityList, PriorityCreateView, PriorityUpdateView, PriorityDeleteView
 from weborg.views import CategoryList, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
-from weborg.views import TaskList, TaskCreateView, TaskUpdateView
+from weborg.views import TaskList, TaskCreateView, TaskUpdateView, TaskDeleteView
 from weborg import views
 
 urlpatterns = [
@@ -38,6 +38,7 @@ urlpatterns = [
     path('task_list', TaskList.as_view(), name='task-list'),
     path('task_list/add', TaskCreateView.as_view(), name='task-add'),
     path('task_list/<pk>',TaskUpdateView.as_view(), name='task-update'),
+    path('task_list/<pk>/delete', TaskDeleteView.as_view(), name='task-delete'),
     # Note Paths
     # SubTask Paths
 ]
