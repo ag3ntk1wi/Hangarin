@@ -9,6 +9,30 @@
   <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/favicon.png' %}" />
   <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+  <style>
+    /* Make sure header has a fixed height */
+    .app-header {
+      height: 70px;   /* adjust if needed */
+      position: fixed;
+      top: 0;
+      width: 100%; 
+      z-index: 1000;  /* keep it above content */
+    }
+
+    /* Push the body content down */
+    .body-wrapper {
+      margin-top: 70px;  /* same as header height */
+    }
+    .main-panel {
+      padding: 20px;
+    }
+
+    .main-panel input[type="text"],
+    .main-panel input[type="search"] {
+      margin-left: 40px;
+    }
+  </style>
 </head>
 
 <body>
@@ -21,7 +45,7 @@
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
           <a href="./base.html" class="text-nowrap logo-img">
-            <img src="{% static 'images/logos/hangarin-logo.svg' %}" width="180" alt="" />
+            <img src="{% static 'images/logos/hangarin-logo-new.svg' %}" width="180" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>

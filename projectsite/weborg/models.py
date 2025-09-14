@@ -8,17 +8,17 @@ class BaseModel(models.Model):
         abstract = True
 
 class Priority(BaseModel):
-    priority_name = models.CharField(max_length=100)
+    priority_name = models.CharField(max_length=100, verbose_name="Name")
 
     class Meta:
         verbose_name = "Priority"
         verbose_name_plural = "Priorities"
 
     def __str__(self):
-        return self.priority_name
+        return self.priority_name 
     
 class Category(BaseModel):
-    category_name = models.CharField(max_length=100)
+    category_name = models.CharField(max_length=100, verbose_name="Name")
 
     class Meta:
         verbose_name = "Category"
@@ -28,9 +28,9 @@ class Category(BaseModel):
         return self.category_name
     
 class Task(BaseModel):
-    task_title = models.CharField(max_length=150)
-    task_description = models.CharField(max_length=150)
-    task_deadline = models.DateField()
+    task_title = models.CharField(max_length=150, verbose_name="Title")
+    task_description = models.CharField(max_length=150, verbose_name="Description")
+    task_deadline = models.DateField(verbose_name="Deadline")
     task_status = models.CharField(
         max_length=50,
         choices= [
@@ -38,23 +38,24 @@ class Task(BaseModel):
             ("In Progress", "In Progress"),
             ("Completed", "Completed"),
         ],
-        default = "pending"
+        default = "pending",
+        verbose_name="Status"
     )
-    task_category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    task_priority = models.ForeignKey(Priority, on_delete=models.CASCADE)
+    task_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Task Category")
+    task_priority = models.ForeignKey(Priority, on_delete=models.CASCADE, verbose_name="Task Priority")
 
     def __str__(self):
         return self.task_title
     
 class Note(BaseModel):
-    note_content = models.CharField(max_length=150)
-    note_task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    note_content = models.CharField(max_length=150, verbose_name="Content")
+    note_task = models.ForeignKey(Task, on_delete=models.CASCADE, verbose_name="Task")
 
     def __str__(self):
         return self.note_content
 
 class SubTask(BaseModel):
-    sub_title = models.CharField(max_length=150)
+    sub_title = models.CharField(max_length=150, verbose_name="Title")
     sub_status = models.CharField(
         max_length=50,
         choices= [
@@ -62,9 +63,10 @@ class SubTask(BaseModel):
             ("In Progress", "In Progress"),
             ("Completed", "Completed"),
         ],
-        default = "pending"
+        default = "pending",
+        verbose_name="Status"
     )
-    sub_parent_task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    sub_parent_task = models.ForeignKey(Task, on_delete=models.CASCADE, verbose_name="Parent Task")
 
     def __str__(self):
         return self.sub_title
