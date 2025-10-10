@@ -6,12 +6,16 @@ from weborg.forms import PriorityForm, CategoryForm, TaskForm, NoteForm, SubTask
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
-class HomePageView(ListView):
+class HomePageView(LoginRequiredMixin, ListView):
     model = Priority
     context_object_name = 'home'
     template_name = "home.html"
+
+    login_url = 'account_login'
+    redirect_field_name = 'next'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
