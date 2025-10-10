@@ -9,16 +9,33 @@
   <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/favicon-new.png' %}" />
   <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
   <style>
+    /* ---------- Layout Tweaks ---------- */
+    body {
+      background-color: #f8f9fa;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .left-sidebar {
+      height: 100vh;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .left-sidebar::-webkit-scrollbar {
+      display: none;
+    }
     .app-header {
       height: 70px;
       position: fixed;
       top: 0;
-      width: 100%; 
+      width: 100%;
       z-index: 1000;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
     }
-
     .body-wrapper {
       margin-top: 70px;
     }
@@ -26,41 +43,102 @@
       padding: 20px;
     }
 
-    .main-panel input[type="text"],
-    .main-panel input[type="search"] {
-      margin-left: 40apx;
+    /* ---------- Navbar Enhancements ---------- */
+    .navbar {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      color: #327fa8;
+      letter-spacing: 0.5px;
+    }
+    .search-box input {
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      padding: 6px 14px;
+      transition: all 0.2s;
+      width: 200px;
+    }
+    .search-box input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #cce5ff;
+      border-color: #86b7fe;
+    }
+    .nav-icon-hover {
+      width: 32px;
+      height: 32px;
+      font-size: 1.3rem;
+      color: #555;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+      border-radius: 50%;
+      user-select: none;
     }
 
+    .nav-icon-hover:hover {
+      color: #327fa8;
+      transform: scale(1.1);
+    }
+
+    .nav-icon-hover:active {
+      transform: scale(0.95);
+    }
+
+    /* ---------- Dark Mode ---------- */
+    body.dark-mode {
+      background-color: #121212;
+      color: #ddd;
+    }
+    body.dark-mode .card, 
+    body.dark-mode .app-header, 
+    body.dark-mode .left-sidebar {
+      background-color: #1e1e1e !important;
+      color: #ddd;
+      box-shadow: none;
+    }
+    body.dark-mode a, 
+    body.dark-mode .hide-menu {
+      color: #ddd !important;
+    }
+
+    /* ---------- Icons & Misc ---------- */
     .icon-big i {
-    font-size: 3rem;
-    line-height: 1;
-    color: #327fa8;
-    background: #f0f0ff;
-    padding: 10px;
-    border-radius: 12px;
+      font-size: 3rem;
+      line-height: 1;
+      color: #327fa8;
+      background: #f0f0ff;
+      padding: 10px;
+      border-radius: 12px;
     }
   </style>
+
 </head>
 
 <body>
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
-    <!-- Sidebar Start -->
+    <!-- Sidebar -->
     <aside class="left-sidebar">
-      <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
+        <div class="brand-logo d-flex align-items-center justify-content-between p-3">
           <a href="{% url 'home' %}" class="text-nowrap logo-img">
-            <img src="{% static 'images/logos/hangarin-logo-new.svg' %}" width="180" alt="" />
+            <img src="{% static 'images/logos/hangarin-logo-new.svg' %}" width="180" alt="Hangarin">
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-            <i class="ti ti-x fs-8"></i>
+            <i class="bi bi-x-lg fs-5"></i>
           </div>
         </div>
         <!-- Sidebar navigation-->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-          <ul id="sidebarnav">
+        <nav class="sidebar-nav">
+          <ul id="sidebarnav" class="ps-3 pe-2">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">HOME</span>
@@ -126,72 +204,80 @@
             </li>
           </ul>
         </nav>
-        <!-- End Sidebar navigation -->
       </div>
-      <!-- End Sidebar scroll-->
     </aside>
-    <!--  Sidebar End -->
-    <!--  Main wrapper -->
+
+    <!-- Body -->
     <div class="body-wrapper">
-      <!--  Header Start -->
+      <!-- Header -->
       <header class="app-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
-            <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
-                <i class="ti ti-menu-2"></i>
-              </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white px-3">
+          <div class="d-flex align-items-center gap-3">
+            <a class="nav-link sidebartoggler d-xl-none" id="headerCollapse" href="javascript:void(0)">
+              <i class="bi bi-list"></i>
+            </a>
+            <span class="navbar-brand mb-0">Hangarin</span>
+          </div>
+
+          <div class="search-box d-none d-md-block ms-3">
+            <input type="text" placeholder="Search tasks, notes..." />
+          </div>
+
+          <ul class="navbar-nav ms-auto align-items-center gap-3">
+            <li class="nav-item">
+              <i class="bi bi-bell nav-icon-hover"></i>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                <i class="ti ti-bell-ringing"></i>
-                <div class="notification bg-primary rounded-circle"></div>
+              <i class="bi bi-brightness-high nav-icon-hover" id="themeToggle"></i>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'images/profile/vivianbanshee.png' %}" width="35" height="35" class="rounded-circle" alt="user">
               </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userMenu">
+                <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> My Profile</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="{% url 'account_logout' %}"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+              </ul>
             </li>
           </ul>
-          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">App Dev</a>
-              <li class="nav-item dropdown">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <img src="{% static 'images/profile/user-1.jpg' %}" alt="" width="35" height="35" class="rounded-circle">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                  <div class="message-body">
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">My Profile</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
-                    </a>
-                    <a href="{% url 'account_logout' %}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
         </nav>
       </header>
-      <!--  Header End -->
+
+      <!--  Main Content -->
       <div class="main-panel">
         {% block content %}
         {% endblock %}
       </div>
     </div>
   </div>
+
+  <!-- Scripts -->
   <script src="{% static 'libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'js/sidebarmenu.js' %}"></script>
   <script src="{% static 'js/app.min.js' %}"></script>
-  <script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'libs/simplebar/dist/simplebar.js' %}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 
+  <script>
+  const toggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  // ✅ Load the saved theme preference on page load
+  if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-mode');
+    toggle.classList.remove('bi-brightness-high');
+    toggle.classList.add('bi-moon');
+  }
+
+  // ✅ Toggle and save preference
+  toggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    toggle.classList.toggle('bi-moon', isDark);
+    toggle.classList.toggle('bi-brightness-high', !isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+</script>
+</body>
 </html>

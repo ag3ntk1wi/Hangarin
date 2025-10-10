@@ -194,7 +194,7 @@ class SubTaskList(ListView):
         return qs
     
     def get_ordering(self):
-        allowed = ["sub_title", "sub_status", "created_at"]
+        allowed = ["sub_title", "sub_status"]
         sort_by = self.request.GET.get("sort_by")
 
         if sort_by in allowed:

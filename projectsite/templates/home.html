@@ -1,144 +1,202 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 <div class="content">
   <div class="container-fluid">
     <h4 class="page-title mb-4 fw-bold">Dashboard</h4>
 
+    <!-- ====== STAT CARDS ====== -->
     <div class="row g-3">
       <div class="col-md-3">
-        <div class="card shadow-sm border-0 rounded-3 bg-warning-subtle">
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div class="icon-big text-center text-warning flex-shrink-0">
-                <i class="ti ti-users"></i>
-              </div>
-              <div class="ms-3">
-                <p class="card-category mb-1 text-muted small">Total Tasks</p>
-                <h4 class="card-title mb-0 fw-bold">{{ total_tasks }}</h4>
-              </div>
+        <div class="card shadow-sm border-0 rounded-3 bg-warning-subtle hover-scale">
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-big text-warning me-3">
+              <i class="ti ti-clipboard-text fs-5"></i>
+            </div>
+            <div>
+              <p class="text-muted small mb-1">Total Tasks</p>
+              <h4 class="fw-bold mb-0">{{ total_tasks }}</h4>
             </div>
           </div>
         </div>
       </div>
 
       <div class="col-md-3">
-        <div class="card shadow-sm border-0 rounded-3 bg-success-subtle">
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div class="icon-big text-center text-success flex-shrink-0">
-                <i class="ti ti-chart-bar"></i>
-              </div>
-              <div class="ms-3">
-                <p class="card-category mb-1 text-muted small">In Progress</p>
-                <h4 class="card-title mb-0 fw-bold">{{ in_progress_tasks }}</h4>
-              </div>
+        <div class="card shadow-sm border-0 rounded-3 bg-primary-subtle hover-scale">
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-big text-primary me-3">
+              <i class="ti ti-check fs-5"></i>
+            </div>
+            <div>
+              <p class="text-muted small mb-1">Completed</p>
+              <h4 class="fw-bold mb-0">{{ completed_tasks }}</h4>
             </div>
           </div>
         </div>
       </div>
 
       <div class="col-md-3">
-        <div class="card shadow-sm border-0 rounded-3 bg-danger-subtle">
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div class="icon-big text-center text-danger flex-shrink-0">
-                <i class="ti ti-news"></i>
-              </div>
-              <div class="ms-3">
-                <p class="card-category mb-1 text-muted small">Pendings</p>
-                <h4 class="card-title mb-0 fw-bold">{{ pending_tasks }}</h4>
-              </div>
+        <div class="card shadow-sm border-0 rounded-3 bg-success-subtle hover-scale">
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-big text-success me-3">
+              <i class="ti ti-chart-bar fs-5"></i>
+            </div>
+            <div>
+              <p class="text-muted small mb-1">In Progress</p>
+              <h4 class="fw-bold mb-0">{{ in_progress_tasks }}</h4>
             </div>
           </div>
         </div>
       </div>
 
       <div class="col-md-3">
-        <div class="card shadow-sm border-0 rounded-3 bg-primary-subtle">
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <div class="icon-big text-center text-primary flex-shrink-0">
-                <i class="ti ti-check"></i>
-              </div>
-              <div class="ms-3">
-                <p class="card-category mb-1 text-muted small">Completed</p>
-                <h4 class="card-title mb-0 fw-bold">{{ completed_tasks }}</h4>
-              </div>
+        <div class="card shadow-sm border-0 rounded-3 bg-danger-subtle hover-scale">
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-big text-danger me-3">
+              <i class="ti ti-alert-triangle fs-5"></i>
+            </div>
+            <div>
+              <p class="text-muted small mb-1">Pending</p>
+              <h4 class="fw-bold mb-0">{{ pending_tasks }}</h4>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row mt-4">
-      <div class="col-md-12">
+    <!-- ====== MAIN DASHBOARD CONTENT ====== -->
+    <div class="row mt-4 g-4">
+      <!-- Left column: Chart + Info -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-3 mb-4">
+          <div class="card-header bg-light border-0">
+            <h5 class="card-title mb-0 fw-bold">Task Overview</h5>
+            <p class="card-category text-muted small mb-0">Visual summary of your progress</p>
+          </div>
+          <div class="card-body text-center">
+            <canvas id="taskChart" height="180"></canvas>
+          </div>
+        </div>
+
         <div class="card border-0 shadow-sm rounded-3">
           <div class="card-header bg-light border-0">
-            <h5 class="card-title mb-0">Hangarin</h5>
-            <p class="card-category text-muted small">Your Personal Task and Goal Manager</p>
+            <h5 class="card-title mb-0">About Hangarin</h5>
+            <p class="card-category text-muted small mb-0">Your Personal Task & Goal Manager</p>
           </div>
           <div class="card-body">
             <p class="text-muted mb-2">
-              Hangarin helps you plan your day, manage your priorities, and track progress — one task at a time.
+              Plan your day, manage your priorities, and track progress — one task at a time.
             </p>
             <p class="mb-0">Built with <strong>Django</strong> for simplicity and productivity.</p>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card border-0 shadow-sm rounded-3">
-                <div class="card-header bg-light border-0">
-                    <h6 class="mb-0 fw-bold">Recent Tasks</h6>
-                </div>
-                <div class="card-body">
-                {% if recent_tasks %}
-                    <table class="table table-sm align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Status</th>
-                                <th>Deadline</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% for task in recent_tasks %}
-                        <tr>
-                            <td>{{ task.task_title }}</td>
-                            <td>
-                                {% if task.task_status == "Completed" %}
-                                <span class="badge bg-success">Completed</span>
-                                {% elif task.task_status == "In Progress" %}
-                                <span class="badge bg-warning text-dark">In Progress</span>
-                                {% else %}
-                                <span class="badge bg-secondary">Pending</span>
-                                {% endif %}
-                            </td>
-                            <td>{{ task.task_deadline }}</td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    {% else %}
-                    <p class="text-muted mb-0">No recent tasks available.</p>
-                {% endif %}
-                </div>
+      <!-- Right column: Recent Tasks + Quick Nav -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-3 mb-4">
+          <div class="card-header bg-light border-0 d-flex justify-content-between align-items-center">
+            <h6 class="mb-0 fw-bold">Recent Tasks</h6>
+            <a href="{% url 'task-list' %}" class="text-decoration-none small text-primary">View all →</a>
+          </div>
+          <div class="card-body">
+            {% if recent_tasks %}
+            <div class="table-responsive">
+              <table class="table table-sm align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Deadline</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for task in recent_tasks %}
+                  <tr>
+                    <td>{{ task.task_title }}</td>
+                    <td>
+                      {% if task.task_status == "Completed" %}
+                      <span class="badge bg-success">Completed</span>
+                      {% elif task.task_status == "In Progress" %}
+                      <span class="badge bg-warning text-dark">In Progress</span>
+                      {% else %}
+                      <span class="badge bg-secondary">Pending</span>
+                      {% endif %}
+                    </td>
+                    <td>{{ task.task_deadline|date:"M j, Y" }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
+            {% else %}
+            <p class="text-muted mb-0">No recent tasks available.</p>
+            {% endif %}
+          </div>
         </div>
-    </div>
 
-    <div class="col-md-6">
         <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-header bg-light border-0">
-                <h6 class="mb-0 fw-bold">Quick Navigate</h6>
-            </div>
-            <div class="card-body">
-                <a href="{% url 'task-list' %}" class="btn btn-outline-primary btn-dashboard me-2">View Tasks</a>
-                <a href="{% url 'note-list' %}" class="btn btn-outline-secondary btn-dashboard me-2">View Notes</a>
-                <a href="{% url 'subtask-list' %}" class="btn btn-outline-success btn-dashboard">View Subtasks</a>
-            </div>
+          <div class="card-header bg-light border-0">
+            <h6 class="mb-0 fw-bold">Quick Navigate</h6>
+          </div>
+          <div class="card-body d-flex flex-wrap gap-2">
+            <a href="{% url 'task-list' %}" class="btn btn-outline-primary flex-fill py-2">
+              <i class="ti ti-clipboard-text me-1"></i> Tasks
+            </a>
+            <a href="{% url 'note-list' %}" class="btn btn-outline-secondary flex-fill py-2">
+              <i class="ti ti-notes me-1"></i> Notes
+            </a>
+            <a href="{% url 'subtask-list' %}" class="btn btn-outline-success flex-fill py-2">
+              <i class="ti ti-list-check me-1"></i> Subtasks
+            </a>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+
+<!-- ====== CHART.JS ====== -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const ctx = document.getElementById('taskChart');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Completed', 'In Progress', 'Pending'],
+      datasets: [{
+        data: [{{ completed_tasks }}, {{ in_progress_tasks }}, {{ pending_tasks }}],
+        backgroundColor: ['#198754', '#ffc107', '#6c757d'],
+        borderWidth: 2,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      cutout: '70%',
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: { usePointStyle: true, padding: 15 }
+        },
+        tooltip: {
+          backgroundColor: '#fff',
+          titleColor: '#333',
+          bodyColor: '#333',
+          borderColor: '#ddd',
+          borderWidth: 1
+        }
+      }
+    }
+  });
+});
+</script>
+
+<style>
+.hover-scale:hover { transform: scale(1.03); transition: all 0.3s ease; }
+.table th { font-weight: 600; }
+.btn { border-radius: 10px !important; }
+.card-body p, .card-category { font-size: 0.9rem; }
+</style>
 {% endblock %}

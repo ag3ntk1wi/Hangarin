@@ -1,84 +1,91 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 <div class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">List of SubTasks</div>
-                        <div class="card-category">Break down complex goals into smaller, actionable steps.</div>
-                    </div>
-                    <br />
-                            <div class="row align-items-center px-3 pt-3 pb-2">
-                                <div class="col-md-6">
-                                    <form class="navbar-left navbar-form nav-search mr-md-3" action="{% url 'subtask-list'%}">
-                                        <div class="input-group">
-                                            <input type="text" placeholder="Search ..." class="form-control" name="q" />
-                                            <span class="input-group-text bg-white">
-                                                <i class="ti ti-search"></i>
-                                            </span>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="pull-right">
-                                        <a href="{% url 'subtask-add' %}" class="btn btn-success btn-rounded">Add SubTask</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 px-3 pb-3">
-                                <form method="get" class="d-flex align-items-center gap-2">
-                                    <div class="col-auto">
-                                        <label for="smallSelect" class="col-form-label">Sort by</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select class="form-control form-control-sm" id="smallSelect" name="sort_by">
-                                            <option value="sub_title" {% if request.GET.sort_by == "sub_title" %}selected{% endif %}>Task Title</option>
-                                            <option value="sub_status" {% if request.GET.sort_by == "sub_status" %}selected{% endif %}>Status</option>
-                                            <option value="created_at" {% if request.GET.sort_by == "created_at" %}selected{% endif %}>Created At</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button type="submit" class="btn btn-primary btn-sm btn-rounded">Sort</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                    <div class="card-body">
-                        <table class="table table-striped mt-3">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for object in object_list %}
-                                <tr>
-                                    <td>{{ object.sub_title }}</td>
-                                    <td>{{ object.sub_status }}</td>
-                                    <td>
-                                        <a href="subtask_list/{{ object.id }}">Edit</a>
-                                        <a href="subtask_list/{{ object.id }}/delete" class="text-danger">Delete</a>
-                                    </td>
-                                </tr>
-                                {% empty %}
-                                <tr>
-                                    <td colspan="4" style="text-align: center">
-                                        <p class="text-sm font-weight-bold mb-0">No Records Found</p>
-                                    </td>
-                                </tr>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        {% include 'includes/pagination.html' %}
-                    </div>
-                </div>
-            </div>
+  <div class="container-fluid">
+    <div class="card shadow-sm border-0 rounded-3">
+      <div class="card-header bg-light d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="card-title mb-1 text-purple">List of Subtasks</h4>
+          <p class="card-category text-muted mb-0">Break larger goals into smaller, manageable steps.</p>
         </div>
+        <a href="{% url 'subtask-add' %}" class="btn btn-purple btn-rounded text-white" style="background-color:#6f42c1;">
+          <i class="ti ti-plus me-2"></i> Add Subtask
+        </a>
+      </div>
+
+      <div class="card-body">
+        <!-- Search and Sort Section -->
+        <div class="row align-items-center mb-4">
+        <div class="col-md-6 mb-2 mb-md-0">
+            <form method="get" class="d-flex">
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control rounded-start" name="q" value="{{ request.GET.q|default:'' }}" placeholder="Search...">
+                <button class="btn btn-outline-secondary" type="submit"><i class="ti ti-search"></i></button>
+            </div>
+            </form>
+        </div>
+
+        <div class="col-md-6 text-md-end">
+            <form method="get" class="d-inline-flex align-items-center gap-2">
+            <label class="col-form-label-sm text-muted mb-0">Sort by:</label>
+            <select name="sort_by" class="form-select form-select-sm w-auto">
+                <option value="sub_title" {% if request.GET.sort_by == "sub_title" %}selected{% endif %}>Title</option>
+                <option value="sub_status" {% if request.GET.sort_by == "sub_status" %}selected{% endif %}>Status</option>
+            </select>
+            <button type="submit" class="btn btn-outline-primary btn-sm">Sort</button>
+            </form>
+        </div>
+        </div>
+
+        {% if object_list %}
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Title</th>
+                <th>Parent Task</th>
+                <th>Status</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for object in object_list %}
+              <tr>
+                <td>{{ object.sub_title }}</td>
+                <td>
+                    {% if object.sub_parent_task %}
+                    {{ object.sub_parent_task.task_title }}
+                    {% else %}
+                    <span class="text-muted">—</span>
+                    {% endif %}
+                </td>
+                <td>
+                  {% if object.subtask_status == "Completed" %}
+                    <span class="badge bg-success">Completed</span>
+                  {% elif object.subtask_status == "In Progress" %}
+                    <span class="badge bg-warning text-dark">In Progress</span>
+                  {% else %}
+                    <span class="badge bg-secondary">Pending</span>
+                  {% endif %}
+                </td>
+                <td class="text-center">
+                  <a href="{% url 'subtask-update' object.id %}" class="btn btn-sm btn-outline-secondary me-1"><i class="ti ti-pencil"></i></a>
+                  <a href="{% url 'subtask-delete' object.id %}" class="btn btn-sm btn-outline-danger"><i class="ti ti-trash"></i></a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="4" class="text-center text-muted py-3">No subtasks found.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% include 'includes/pagination.html' %}
+        {% else %}
+        <div class="text-center text-muted py-4"><i class="ti ti-folder-off fs-2 mb-2"></i><p>No subtasks found.</p></div>
+        {% endif %}
+      </div>
     </div>
-</div> 
+  </div>
+</div>
 {% endblock %}
