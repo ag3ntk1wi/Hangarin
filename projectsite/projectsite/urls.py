@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from weborg.views import HomePageView, PriorityList, PriorityCreateView, PriorityUpdateView, PriorityDeleteView
 from weborg.views import CategoryList, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
 from weborg.views import TaskList, TaskCreateView, TaskUpdateView, TaskDeleteView
@@ -25,6 +25,7 @@ from weborg import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("accounts/", include("allauth.urls")), # allauth routes
     path('', views.HomePageView.as_view(), name='home'),
     # Priority Paths
     path('priority_list', PriorityList.as_view(), name='priority-list'),
