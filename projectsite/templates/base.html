@@ -6,23 +6,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Hangarin{% endblock %}</title>
-  <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/favicon.png' %}" />
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/favicon-new.png' %}" />
   <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
   <style>
-    /* Make sure header has a fixed height */
     .app-header {
-      height: 70px;   /* adjust if needed */
+      height: 70px;
       position: fixed;
       top: 0;
       width: 100%; 
-      z-index: 1000;  /* keep it above content */
+      z-index: 1000;
     }
 
-    /* Push the body content down */
     .body-wrapper {
-      margin-top: 70px;  /* same as header height */
+      margin-top: 70px;
     }
     .main-panel {
       padding: 20px;
@@ -30,7 +28,16 @@
 
     .main-panel input[type="text"],
     .main-panel input[type="search"] {
-      margin-left: 40px;
+      margin-left: 40apx;
+    }
+
+    .icon-big i {
+    font-size: 3rem;
+    line-height: 1;
+    color: #327fa8;
+    background: #f0f0ff;
+    padding: 10px;
+    border-radius: 12px;
     }
   </style>
 </head>
@@ -44,7 +51,7 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./base.html" class="text-nowrap logo-img">
+          <a href="{% url 'home' %}" class="text-nowrap logo-img">
             <img src="{% static 'images/logos/hangarin-logo-new.svg' %}" width="180" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -59,7 +66,7 @@
               <span class="hide-menu">HOME</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
+              <a class="sidebar-link" href="{% url 'home' %}" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -68,7 +75,7 @@
             </li>
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">NAVIGATION</span>
+              <span class="hide-menu">ORGANIZE</span>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="{% url 'priority-list' %}" aria-expanded="false">
@@ -85,6 +92,10 @@
                 </span>
                 <span class="hide-menu">Categories</span>
               </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">TO-DO</span>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="{% url 'task-list' %}" aria-expanded="false">

@@ -1,25 +1,22 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div class="content">
     <div class="container-fluid">
-        <h4 class="page-title">Home</h4>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">List of Categories</div>
-                        <div class="card-category">Page Subtitle</div>
+                        <div class="card-category">Organize tasks into meaningful groups for better structure and clarity.</div>
                     </div>
                     <br />
-                            <div class="col-md-12 row">
+                            <div class="row align-items-center px-3 pt-3 pb-2">
                                 <div class="col-md-6">
-                                    <form class="navbar-left navbar-form nav-search mr-md-3" action="">
+                                    <form class="navbar-left navbar-form nav-search mr-md-3" action="{% url 'category-list'%}">
                                         <div class="input-group">
-                                            <input type="text" placeholder="Search ..." class="form-control" />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="la la-search search-icon"></i>
-                                                </span>
-                                            </div>
+                                            <input type="text" placeholder="Search ..." class="form-control" name="q" />
+                                            <span class="input-group-text bg-white">
+                                                <i class="ti ti-search"></i>
+                                            </span>
                                         </div>
                                     </form>
                                 </div>
