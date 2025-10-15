@@ -161,14 +161,14 @@ ACCOUNT_LOGIN_METHODS = {"username", "email"} # allow login with username OR ema
 ACCOUNT_SIGNUP_REDIRECT_URL = 'home'
 
 # --- Progressive Web App Settings ---
-PWA_APP_NAME = 'ProjectSite'
-PWA_APP_DESCRIPTION = "A Progressive Web App version of ProjectSite"
+PWA_APP_NAME = 'Hangarin'
+PWA_APP_DESCRIPTION = "Your Personal Task & Goal Manager"
 PWA_APP_THEME_COLOR = '#0A0A0A'
 PWA_APP_BACKGROUND_COLOR = '#FFFFFF'
 PWA_APP_DISPLAY = 'standalone'
 PWA_APP_SCOPE = '/'
 PWA_APP_ORIENTATION = 'portrait'
-PWA_APP_START_URL = '/'
+PWA_APP_START_URL = 'home'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
