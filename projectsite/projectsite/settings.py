@@ -182,11 +182,11 @@ PWA_APP_ICONS = [
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': '/static/img/icon-192.png',
+        'src': '/static/img/logos/hangarin-192.png',
         'sizes': '192x192'
     },
     {
-        'src': '/static/img/icon-512.png',
+        'src': '/static/img/logos/hangarin-512.png',
         'sizes': '512x512'
     }
 ]
